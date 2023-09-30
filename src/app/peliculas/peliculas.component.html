@@ -1,0 +1,26 @@
+<h1>TRENDING </h1>     
+<div class="peliculas-container">     
+  <div *ngFor="let p of peliculas"> 
+       <div class="book-card">  <!--   book-card     -->  
+        <!--  <div class="imagen" >    </div>-->  
+        <img src="{{ p.postercompleto}}" class="card-img" alt="..." />      
+        <h4 class="titulo">{{ p.title }}</h4>
+        <p class ="resumen">{{ p.overview.slice(0, 200) }}</p> <!-- -->      
+         <button class="btn" (click)="redireccionPeliculas(p.id)" >       
+            Ver mas
+        </button>            
+      </div>  
+  </div>  
+  <ul class="numeros-lista">
+    <li *ngFor="let numero of numeros"
+        class="numero-item"
+        [ngClass]="{'active': numero === numeroSeleccionado}"
+        (click)="seleccionarNumero(numero)">
+      {{ numero }}
+    </li>
+  </ul>
+</div>
+
+ 
+ 
+

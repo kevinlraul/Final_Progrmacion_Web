@@ -1,0 +1,72 @@
+ 
+ <div class="pelicula-container"> 
+    <div class="pelicula-header">
+      
+      <div class="img-container">
+        <img src="{{detalles?.poster_path}}" alt="" />
+      </div> 
+
+      <div class="pelicula-title">
+        <h3 class="titulo">{{ detalles?.original_title }}</h3>  
+        <p class="resumen">{{ detalles?.overview }}</p>
+        <div *ngIf="detalles?.tagline.trim().length > 0 " > 
+          <h3 class="titulo_eslogan"  > Eslogan </h3> 
+          <p class="eslogan" > {{detalles?.tagline}}</p>
+        </div>  
+        <h3>Generos</h3> 
+        <div *ngFor="let g of detalles?.genres" class="gen">
+          <span class="genero"> {{ g.name }}</span>
+        </div>    
+        <h3>Idiomas</h3> 
+        <div *ngFor="let l of detalles?.spoken_languages.slice(0, 10); let i = index">
+          <span class="idiomas"> {{ l.name }} </span>
+        </div>           
+        <h3></h3>  
+        <a class="homepage" href="{{detalles?.homepage }} " target="_blank">Homme Page</a>     
+      </div>
+
+      <div class="informacion">
+        <div>
+          <h3>Trailer</h3> 
+        <div *ngFor="let t of trailer.slice(0, 10); let i = index" 
+          class="trailer" >
+          <!--<button class="video"  > {{ t.name }} --> 
+            <a href="{{t.Trailer }} " target="_blank" class="video"> {{ t.name }}</a>  
+         <!-- </button>-->
+        </div>
+          <h3>Compañias que ayudaron a producir la pelicula</h3> 
+        <div *ngFor="let pc of detalles?.production_companies.slice(0, 10); let i = index" 
+          class="producionpelicula">
+          <span class="producionpelicula"> {{ pc.name }} </span>
+        </div>    
+        <h3>Ciudad Producida</h3> 
+        <div *ngFor="let c of detalles?.production_countries.slice(0, 10); let i = index" 
+          class="producida">
+          <span class="producida"> {{ c.name }} </span>       
+        </div> 
+      </div>
+    </div> 
+  </div>
+
+  <div class="comentario-input">
+    <form>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Ingrese Sus Impresiones de sus peliculas favoritas"
+        [value]="enviarComentario"
+        (change)="getComentario($event)"
+      />
+      <button type="submit" class="btn btn-primary" (click)="getAgregarComentario()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+ 
+ 
+  
+ 
