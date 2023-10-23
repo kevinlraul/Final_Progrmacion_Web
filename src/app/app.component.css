@@ -1,0 +1,79 @@
+.nav-padre{
+    background: #162835!important;   
+    color: #162835!important;
+    border-radius: 0!important;
+    align-items: right;
+    height: auto;
+    width: auto;
+    
+}
+.contenedor-navbar { 
+    display: flex;   
+    justify-content: space-between;   
+    padding: 20px 5px; 
+    
+} 
+.btn-end{
+    background-color:  #162835;
+    border: none;
+    cursor: pointer;
+    
+}
+.bi-box-arrow-right{
+    height: 50px;
+    width: 50px;
+    color: white;
+    background-color: #162835;     
+}
+
+.bi-chat{
+    height:35px;
+    width: 35px;
+    color: white;
+    
+}
+.bi-person-gear{
+    height: 50px;
+    width: 50px;
+    color: white; 
+}
+.bi-person-bounding-box{
+    height: 45px;
+    width: 50px;
+    color: white;
+}
+
+.nav-link{
+    font-size: 40px;
+    color: white;
+    margin: auto;
+    text-decoration: none; 
+    padding: 25px;
+}
+
+.btn-block{
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+ 
+.titulo{
+    font-size: 50px;
+    color: white ;
+    cursor: pointer;  
+    text-decoration: none;   
+}
+.navbar-nav{
+
+    display: flex;   
+    justify-content: space-between;   
+    cursor: pointer; 
+    align-items: center;
+    
+}
+ 
+ul.navbar-nav{
+    margin-bottom: auto;
+    list-style: none;
+}
+ 

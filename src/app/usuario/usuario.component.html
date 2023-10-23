@@ -1,0 +1,101 @@
+<div class="users-background">
+    <div class="users-container">
+      <h3>Todos Los Usuarios</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users">
+            <th scope="row">{{ u.id }}</th>
+            <td>{{ u.name }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.rol }}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="delete(u.id)"
+                [disabled]="isCurrentUser(u.id)"
+              >
+                Eliminar
+              </button>
+  
+              <!-- Mostrar el formulario de edición cuando se presiona Editar -->
+              <div *ngIf="editUser === u.id">
+                <form
+                  *ngIf="editUser != 0"  
+                  [formGroup]="angForm"
+                  (ngSubmit)="patchData(angForm, u.id)"
+                  autocomplete="off"
+                >
+                  <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input
+                      formControlName="user"
+                      name="user"
+                      type="text"
+                      class="form-control"
+                      [placeholder]="u.name"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email </label>
+                    <input
+                      formControlName="email"
+                      type="email"
+                      class="form-control"
+                      [placeholder]="u.email"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input
+                      formControlName="password"
+                      type="password"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">
+                      Rol
+                    </label>
+                    <select
+                      formControlName="rol"
+                      class="form-control"
+                      aria-label="Default select example"
+                    >
+                      <option *ngFor="let r of roles">{{ r.rol }}</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Guardar Cambios
+                  </button>
+                  <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                    Cancelar
+                  </button>
+                </form>
+              </div>
+  
+              <!-- Botón Editar para mostrar el formulario -->
+              <button
+                 *ngIf="editUser === 0"  
+                type="button"
+                class="btn btn-primary"
+                (click)="editarFormulario(u.id)"
+              >
+                Editar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

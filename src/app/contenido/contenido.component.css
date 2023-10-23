@@ -1,0 +1,107 @@
+/* Estilos para el contenedor principal */
+[name="contenedor_imagen"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    
+  }
+  
+  /* Estilos para la etiqueta del archivo */
+  [name="contenedor_imagen"] label {
+    font-size: 18px;
+  }
+  
+  /* Estilos para la imagen */
+  [name="contenedor_imagen"] img {
+    max-width: 100%;
+
+    height: auto;
+    display: block;
+  }
+  
+  /* Estilos para el contenedor de comentarios */
+  .comentario-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Estilos para el campo de texto del comentario */
+  .comentario-input input[type="text"] {
+    width: 100%;
+  }
+  
+  /* Estilos para los botones de guardar y descartar */
+  [name='botones'] {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  /* Estilos para los botones */
+  [name='botones'] button {
+    width: 100px;
+  }
+
+
+    .titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Esto asegura que el contenido esté centrado verticalmente en la página */
+    text-align: center;
+  }
+
+
+
+
+  /* Estilo para el contenedor principal */
+
+.contenedor_image{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+ 
+  
+  /* Estilo para los elementos individuales dentro del contenedor */
+  .elemento-div {
+    width: 300px; /* Ancho deseado para cada elemento */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Estilo para las tarjetas de imagen */
+  .imagenes-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    width: 100%;
+  }
+  
+  /* Estilo para las imágenes dentro de las tarjetas */
+  .card-img {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 300px;
+    width: 300px ;
+    max-width: 100%;
+    height: auto; 
+    object-fit: cover;
+  }
+  
+  /* Estilo para el resumen del contenido */
+  .resumen {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
