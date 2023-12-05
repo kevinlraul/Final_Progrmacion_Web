@@ -1,0 +1,214 @@
+<div class="pelicula-container"> 
+    <div class="pelicula-header">
+      
+      <div class="img-container">
+        <img src="{{detalles?.poster_path}}" alt="" />
+      </div> 
+      <div class="pelicula-title">
+        <h3 class="titulo">{{ detalles?.original_title }}</h3>  
+        <p class="resumen">{{ detalles?.overview }}</p>
+        <div *ngIf="detalles?.tagline.trim().length > 0 " > 
+          <h3 class="titulo_eslogan"  > Eslogan </h3> 
+          <p class="eslogan" > {{detalles?.tagline}}</p>
+        </div>  
+        <h3>Generos</h3> 
+        <div *ngFor="let g of detalles?.genres" class="gen">
+          <span class="genero"> {{ g.name }}</span>
+        </div>    
+        <h3>Idiomas</h3> 
+        <div *ngFor="let l of detalles?.spoken_languages.slice(0, 10); let i = index"class="len" > 
+          <span class="idiomas"> {{ l.name }} </span>
+        </div>           
+        <h3></h3>  
+        <a class="homepage" href="{{detalles?.homepage }} " target="_blank">Homme Page</a>     
+      </div>
+
+      <div class="informacion">
+        <div>
+          <h3>Trailer</h3> 
+        <div *ngFor="let t of trailer.slice(0, 5); let i = index" 
+          class="trailer" > 
+            <a href="{{t.Trailer }} " target="_blank" class="video"> {{ t.name.slice(0, 62) }}</a>   
+        </div>
+          <h3>Compañias que ayudaron a producir la pelicula</h3> 
+        <div *ngFor="let pc of detalles?.production_companies.slice(0, 10); let i = index "  class="conp">
+          <span class="producionpelicula"> {{ pc.name }} </span>
+        </div>    
+        <h3>Ciudad Producida</h3> 
+        <div *ngFor="let c of detalles?.production_countries.slice(0, 10); let i = index" class="ciu">
+          <span class="producida"> {{ c.name }} </span>       
+        </div> 
+      </div>
+      <h3>Te gusto la pelicula ? </h3> 
+      
+      <div class='estado'>
+        <!-- me gusta sin seleccionar -->
+        <div *ngIf="estado_like == 'F' || contenido_like == 0 &&  estado_like == 'N' " class="completo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"  (click)="actualizar('V','F')"  >
+            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+          </svg>
+        </div>   
+        <div *ngIf="estado_like == 'F' || estado_like == 'N'   && cont_like > 0   " class="contador_like"> 
+          {{cont_like}}
+        </div>
+        <!--me gusta seleccionado  --> 
+        <div *ngIf="estado_like == 'V'    "> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16" (click)="actualizar('F','F')">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+          </svg>
+        </div>      
+        <div *ngIf="estado_like == 'V' && cont_like > 0  " class="contador_like">
+          {{cont_like}}
+        </div>  
+        <!-- no me gusta  -->
+        <div *ngIf="estado_dislike == 'F' || contenido_like == 0 &&  estado_dislike == 'N' " class="roto"> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak" viewBox="0 0 16 16" (click)="actualizar('F','V')">
+            <path d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38.094 38.094 0 0 0 .867-.59Zm-.303-1.01-.971-3.237 1.74-2.608a1 1 0 0 0 .103-.906l-1.3-3.468 1.45-1.813c1.861-.948 4.446.002 5.197 2.11.691 1.94-.055 5.521-6.219 9.922Zm-1.25 1.137a36.027 36.027 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3 1.815 4.537Zm-2.3-3.06-.442-1.106a1 1 0 0 1 .034-.818l1.305-2.61L4.564 3.35a1 1 0 0 1 .168-.991l1.032-1.24c-1.688-.449-3.7.398-4.456 2.128-.711 1.627-.413 4.55 3.706 8.229Z"/>
+          </svg>
+        </div>
+        <div *ngIf="estado_dislike == 'F' || estado_dislike == 'N' && cont_dislike > 0  " class="contador_dislike">
+          {{cont_dislike}}
+        </div >
+        <!--no me gusta selecccionado  --> 
+        <div *ngIf="estado_dislike == 'V'  "> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16" (click)="actualizar('F','F')">
+            <path d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+          </svg> 
+        </div>
+        <div *ngIf="estado_dislike == 'V' && cont_dislike > 0   " class="contador_dislike">
+          {{cont_dislike}}
+        </div>
+      </div> 
+
+    </div>    
+  </div>
+  <!-- div para los comentarios  -->
+  <h4>Dejanos tus comentarios </h4>
+  <div class="comentario-input">
+    <form>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Cuentanos tu opinion..."
+        [value]="enviarComentario"
+        (change)="getComentario($event)"
+      />
+      <button type="submit" class="btn btn-primary" (click)="AgregarComentario()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+
+  
+<!--  comentarios -->
+<div class="container-comments" >           
+  <div class="comments"  *ngFor="let comentado of comentarios">        
+    <div class="info-comments " *ngIf="comentado.detalles_peliculas_id ===  pelicula_id  " >
+      <div class="photo-perfil">
+        <img [src]="comentado?.avatar" alt="User Image" class="user-avatar"> 
+      </div>   
+      <div class = "contenedor_info">
+        <div class="header">
+          <h4>{{ comentado?.name }}</h4> 
+          <h5>{{ comentado?.fecha_hora }}</h5> 
+        </div>
+          <p>{{ comentado.text }}</p> 
+        <div class="footer" *ngIf="respuesta == false " >
+          <h5 class="request" (click)="obteniendo_id(comentado?.id)" >Responder</h5>
+          <h5 class="request" *ngIf=" comentado?.user_id == userId" (click)="editar_comentario(comentado?.id , comentado.text)" >Editar</h5> 
+          <div class="eliminar" *ngIf="isAdmin " >
+            <h5 class="eliminacion"  (click)="EliminarComentario(comentado?.id) "> Eliminar</h5>
+          </div>
+        </div> 
+        <div class="comentario-input2" *ngIf="respuesta && comentado?.id === comentario_id " >
+          <form>
+            <input              
+              type="text"
+              class="form-control2"
+              placeholder="Cuentanos tu opinion..."
+              [value]="enviarComentario"
+              (change)="getComentario($event)"
+            />
+            <button *ngIf=" edit==false "  type="submit" class="btn btn-primary" (click)="postAgregarRespuesta(comentado?.user_id)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+              </svg>
+            </button>
+            <!-- terminar de revisar esta parte -->
+            <button *ngIf=" edit==true  "   type="submit" class="btn btn-primary" (click)="actualizarComentario()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+              </svg>
+            </button>
+
+            <button type="submit" class="btn btn-secundary" (click)="getCancelarRespuesta()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg>
+            </button>
+          </form>
+        </div>         
+      </div> 
+    </div>  
+<!--  respuestas  -->
+    
+    <div *ngFor="let respuestas of respuesta_comentario" class=" respuesta" >
+      <div class="info-respuesta " *ngIf="respuestas.detalles_peliculas_id ===  pelicula_id  && respuestas?.respuesta_comentario!== null && respuestas?.respuesta_comentario_id == comentado?.id">
+        
+        <div class="photo-perfil">
+          <img [src]="respuestas?.respuesta_avatar" alt="User Image" class="user-avatar"> 
+        </div>
+          <div class="prueba">
+            <div class = "contenedor_respuesta_info">
+              <div class="header">
+                <h4>{{ respuestas?.respuesta_usuario}}  {{" ==> "}} {{ respuestas?.name}} </h4> 
+                <h5>{{ respuestas?.fecha_hora}}</h5> 
+              </div>
+                <p>{{ respuestas.respuesta_comentario}}</p> 
+              <div class="footer" *ngIf="respuesta == false " >      
+                <h5 class="request" (click)="obtendido_respuesta_id(respuestas?.comentario_id)" >Responder</h5>
+                <h5 class="request" *ngIf=" respuestas?.user_id == userId " (click)="editar_respuesta(respuestas?.comentario_id,respuestas?.respuesta_comentario)" >Editar</h5> 
+                <h5 class="elimino" *ngIf="isAdmin "  (click)="EliminarRespuesta(respuestas?.comentario_id)"   > Eliminar</h5>         
+              </div>                  
+            </div>        
+            <div class="comentario-input2" *ngIf="respuesta && respuestas?.comentario_id  === respuesta_id " >
+              <form>
+                <input              
+                  type="text"
+                  class="form-control2"
+                  placeholder="Comenta tu respuesta a esta opinion.."
+                  [value]="enviarComentario"
+                  (change)="getComentario($event)"
+                />
+                <button *ngIf=" edit==false  " type="submit" class="btn btn-primary" (click)="getAgregarRespuestaRespuesta(respuestas?.user_id ,respuestas?.respuesta_comentario_id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                  </svg>
+                </button>
+
+                <button *ngIf=" edit==true  "   type="submit" class="btn btn-primary" (click)="actualizarrespuestacomentario()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                  </svg>
+                </button>
+                
+                <button type="submit" class="btn btn-secundary" (click)="getCancelarRespuesta()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+                </button>
+              </form>
+            </div>         
+          </div>    
+      </div>  
+    </div> 
+ </div>
+</div>
+  
+ 
+
+ 

@@ -1,0 +1,35 @@
+<div class="titulo">
+  <h3 >Bienvenido este es tu espacio para que puedas compartir todas las imagenes que quieras con un breve comentario  </h3>
+</div>
+<div name="contenedor_imagen">
+    <label for="file" class="form-label">Imagen</label>
+    <input type="file" id="file" name="file" class="form-control" accept="image/*" (change)="SubidaImagen($event)">
+    <img  [src]="imagen" accept=".jpg, .jpeg, .png, .gif" (load)="confirmarimagen()" height="80%" width="20%" style="object-fit: cover;"> 
+    <div class="comentario-input"  *ngIf="imagen!=null">
+        <form>
+            <input
+            type="text"
+            class="form-control"
+            placeholder="Agrega una breve reseña..."
+            [value]="enviarComentario "
+            (change)="getComentario($event)"
+            />            
+        </form>
+    </div> 
+     <div >
+        <button type="button" (click)="GuardarImagen()" class="btn btn-outline-primary me-1" [disabled]="imagen==null ">Guardar</button> 
+        <button type="reset" (click)="descartarImagen()" class="btn btn-outline-secondary"  [disabled]="imagen==null">Descartar</button>
+    </div>
+</div>
+<h3> Divierte con todas las imagenes subidas  </h3>
+<div class="contenedor_image" >
+    <div *ngFor="let c of contenido " class="elemento-div">
+        <div class="imagenes-card"> 
+          
+            <label> {{c.name}}</label>
+            <img src="{{ c.imagen}}" class="card-img" alt="..."  name= "image" />   
+            <p class ="resumen">{{ c.texto.slice(0, 120) }}</p>  
+              <button class="eliminar"   *ngIf="es_admin"  (click)="EliminarImagen(c.id) ">Eliminar</button>
+        </div>        
+    </div>    
+</div>
